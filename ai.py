@@ -1,6 +1,7 @@
 # NAME(S): Kaleb Hannan, Shashank Reddy
 #
 # APPROACH: [WRITE AN OVERVIEW OF YOUR APPROACH HERE.]
+#
 #   The first case that I had to solve was what to do when the agent was on the Goal.
 # For this I made and if statment so if the agent was on the goal then it would return 'U'.
 # After this I created more of the base cases were if the goal is in sight (were the goal is in the list of any
