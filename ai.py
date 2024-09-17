@@ -19,14 +19,15 @@ import random
 
 class AI:
     def __init__(self):
-        """
-        Called once before the sim starts. You may use this function
-        to initialize any data or data structures you need.
-        """
         # Coordinates to know were the AI is in the map
         self.xCoord = 0
         self.yCoord = 0
-        self.turn = 0
+        StartNode = Node(0,0)
+        StartNode.setVisitedToYes
+        self.currentNode = StartNode
+        # Map to see where the agent has been 
+        self.map = [StartNode]
+        self.frontier = []
 
     def update(self, percepts):
 
@@ -58,28 +59,83 @@ class AI:
                 self.yCoord += -1
                 return 'W'
         
+
+        #Sets North node if it exist 
+        if percepts['N'][0] == 'g':
+            if self.currentNode.northNode == None:
+                for node in self.map:
+                    if node.xCoord == (self.currentNode.xCoord + 1) and node.yCoord == (self.currentNode.yCoord):
+                        self.currentNode.setNorthNode(node)
+                        node.setSouthNode(self.currentNode)
+                        break
+                newNode = Node(self.currentNode.xCoord + 1,self.currentNode.yCoord)
+                self.map.append(newNode)
+                self.currentNode.setNorthNode(newNode)
+
+        #Sets South node if it exist 
+        if percepts['S'][0] == 'g':
+            if self.currentNode.southNode == None:
+                for node in self.map:
+                    if node.xCoord == (self.currentNode.xCoord - 1) and node.yCoord == (self.currentNode.yCoord):
+                        self.currentNode.setSouthNode(node)
+                        node.setNorthNode(self.currentNode)
+                        break
+                newNode = Node(self.currentNode.xCoord - 1,self.currentNode.yCoord)
+                self.map.append(newNode)
+                self.currentNode.setSouthNode(newNode)
+                newNode.setNorthNode(self.currentNode)
+
+        #Sets East node if it exist 
+        if percepts['E'][0] == 'g':
+            if self.currentNode.eastNode == None:
+                for node in self.map:
+                    if node.xCoord == (self.currentNode.xCoord) and node.yCoord == (self.currentNode.yCoord + 1):
+                        self.currentNode.setEastNode(node)
+                        node.setWestNode(self.currentNode)
+                        break
+                newNode = Node(self.currentNode.xCoord,self.currentNode.yCoord + 1)
+                self.map.append(newNode)
+                self.currentNode.setEastNode(newNode)
+                newNode.setWestNode(self.currentNode)
+        
+        #Sets West node if it exist 
+        if percepts['E'][0] == 'g':
+            if self.currentNode.eastNode == None:
+                for node in self.map:
+                    if node.xCoord == (self.currentNode.xCoord) and node.yCoord == (self.currentNode.yCoord - 1):
+                        self.currentNode.setWestNode(node)
+                        node.setEastNode(self.currentNode)
+                        break
+                newNode = Node(self.currentNode.xCoord,self.currentNode.yCoord - 1)
+                self.map.append(newNode)
+                newNode.setEastNode(self.currentNode)
+                self.currentNode.setWestNode(newNode) 
+
         return random.choice(['N', 'S', 'E', 'W'])
+
+class Node:
+    def __init__(self,X,Y):
+        self.xCoord = X
+        self.yCoord = Y
+        self.northNode = None
+        self.southNode = None
+        self.eastNode = None
+        self.westNode = None
+        self.visited = "no"
     
-"""
-PERCEPTS:
-Called each turn. Parameter "percepts" is a dictionary containing
-nine entries with the following keys: X, N, NE, E, SE, S, SW, W, NW.
-Each entry's value is a single character giving the contents of the
-map cell in that direction. X gives the contents of the cell the agent
-is in.
-
-COMAMND:
-This function must return one of the following commands as a string:
-N, E, S, W, U
-
-N moves the agent north on the map (i.e. up)
-E moves the agent east
-S moves the agent south
-W moves the agent west
-U uses/activates the contents of the cell if it is useable. For
-example, stairs (o, b, y, p) will not move the agent automatically
-to the corresponding hex. The agent must 'U' the cell once in it
-to be transported.
-
-The same goes for goal hexes (0, 1, 2, 3, 4, 5, 6, 7, 8, 9).
-"""
+    def setNorthNode(self,node):
+        self.northNode = node
+    
+    def setSouthNode(self,node):
+        self.southNode = node
+    
+    def setEastNode(self,node):
+        self.eastNode = node
+    
+    def setWestNode(self,node):
+        self.SouthNode = node
+    
+    def setVisitedToYes(self):
+        self.visited = "yes"
+    
+    
