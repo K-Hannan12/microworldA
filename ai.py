@@ -8,6 +8,10 @@
 # For this I made and if statment so if the agent was on the goal then it would return 'U'.
 # After this I created more of the base cases were if the goal is in sight (were the goal is in the list of any
 # of the 4 direction) then the agent would move towrds the goal.  
+# 
+#   The next thing that we needed to do is to make a Graph so that we know where are AI has been.  
+# We made XY Coordinates for the AI so if we do end up in a loop of node we 
+# we know that we have alread be to that node.
 #    
 
 import random
@@ -19,6 +23,9 @@ class AI:
         Called once before the sim starts. You may use this function
         to initialize any data or data structures you need.
         """
+        # Coordinates to know were the AI is in the map
+        self.xCoord = 0
+        self.yCoord = 0
         self.turn = 0
 
     def update(self, percepts):
@@ -30,21 +37,25 @@ class AI:
         #If the goal is in the 'N' dictionary then go North
         for i in percepts['N']:
             if i == 'r':
+                self.xCoord += 1
                 return 'N'
         
         #If the goal is in the 'S' dictionary then go South
         for i in percepts['S']:
             if i == 'r':
+                self.xCoord += -1
                 return 'S'
         
         #If the goal is in the 'E' dictionary then go East
         for i in percepts['E']:
             if i == 'r':
+                self.yCoord += 1
                 return 'E'
         
         #If the goal is in the 'W' dictionary then go West
         for i in percepts['W']:
             if i == 'r':
+                self.yCoord += -1
                 return 'W'
         
         return random.choice(['N', 'S', 'E', 'W'])
