@@ -1,5 +1,7 @@
 # NAME(S): Kaleb Hannan, Shashank Reddy
 #
+# We were working in the same github repo 
+#
 # APPROACH: [WRITE AN OVERVIEW OF YOUR APPROACH HERE.]
 #
 #   The first case that I had to solve was what to do when the agent was on the Goal.
