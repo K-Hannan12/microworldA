@@ -19,12 +19,6 @@ class AI:
         """
         self.turn = 0
 
-    #If Goal is in the list then it will move tords the Goal
-    def GoIfGoalInList(self,direction, percepts):
-        for i in percepts[direction]:
-            if i == 'r':
-                return direction
-
     def update(self, percepts):
 
         # If the agent is on the goal then return 'U'
@@ -32,16 +26,24 @@ class AI:
             return 'U'
         
         #If the goal is in the 'N' dictionary then go North
-        self.GoIfGoalInList('X', percepts)
+        for i in percepts['N']:
+            if i == 'r':
+                return 'N'
         
         #If the goal is in the 'S' dictionary then go South
-        self.GoIfGoalInList('S', percepts)
+        for i in percepts['S']:
+            if i == 'r':
+                return 'S'
         
         #If the goal is in the 'E' dictionary then go East
-        self.GoIfGoalInList('E', percepts)
+        for i in percepts['E']:
+            if i == 'r':
+                return 'E'
         
         #If the goal is in the 'W' dictionary then go West
-        self.GoIfGoalInList('W', percepts)
+        for i in percepts['W']:
+            if i == 'r':
+                return 'W'
         
         return random.choice(['N', 'S', 'E', 'W'])
     
