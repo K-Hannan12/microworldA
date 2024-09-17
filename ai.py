@@ -1,8 +1,10 @@
 # NAME(S): Kaleb Hannan, Shashank Reddy
 #
 # APPROACH: [WRITE AN OVERVIEW OF YOUR APPROACH HERE.]
-#       When first looking at this the first think that I was think that I needed to do was ask 
-#     my self what should my agent do when I see the goal or if it is on the goal.
+#   The first case that I had to solve was what to do when the agent was on the Goal.
+# For this I made and if statment so if the agent was on the goal then it would return 'U'.
+# After this I created more of the base cases were if the goal is in sight (were the goal is in the list of any
+# of the 4 direction) then the agent would move towrds the goal.  
 #    
 
 import random
@@ -16,11 +18,29 @@ class AI:
         """
         self.turn = 0
 
+    #If Goal is in the list then it will move tords the Goal
+    def GoIfGoalInList(self,direction, percepts):
+        for i in percepts[direction]:
+            if i == 'r':
+                return direction
+
     def update(self, percepts):
-        
+
         # If the agent is on the goal then return 'U'
-        if percepts['X'] == 'r':
+        if percepts['X'][0] == 'r':
             return 'U'
+        
+        #If the goal is in the 'N' dictionary then go North
+        self.GoIfGoalInList('X', percepts)
+        
+        #If the goal is in the 'S' dictionary then go South
+        self.GoIfGoalInList('S', percepts)
+        
+        #If the goal is in the 'E' dictionary then go East
+        self.GoIfGoalInList('E', percepts)
+        
+        #If the goal is in the 'W' dictionary then go West
+        self.GoIfGoalInList('W', percepts)
         
         return random.choice(['N', 'S', 'E', 'W'])
     
