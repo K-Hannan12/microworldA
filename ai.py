@@ -142,5 +142,4 @@ class Node:
     
     def setVisitedToYes(self):
         self.visited = "yes"
-    
-    
+      
