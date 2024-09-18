@@ -12,7 +12,10 @@
 #   The next thing that we needed to do is to make a Graph so that we know where are AI has been.  
 # We made XY Coordinates for the AI so if we do end up in a loop of node we 
 # we know that we have alread be to that node.
-#    
+# Next I needed to start making the map of the enviorment so that we know how to get back if
+# get to a dead end. So when we move to the next node we see were the Agent can move then linkes the current node
+# to all of the nodes that the agent can move to. 
+# 
 
 import random
 
@@ -22,11 +25,11 @@ class AI:
         # Coordinates to know were the AI is in the map
         self.xCoord = 0
         self.yCoord = 0
-        StartNode = Node(0,0)
-        StartNode.setVisitedToYes
-        self.currentNode = StartNode
+        self.StartNode = Node(0,0)
+        self.StartNode.setVisitedToYes()
+        self.currentNode = self.StartNode
         # Map to see where the agent has been 
-        self.map = [StartNode]
+        self.map = [self.StartNode]
         self.frontier = []
 
     def update(self, percepts):
@@ -99,7 +102,7 @@ class AI:
                 newNode.setWestNode(self.currentNode)
         
         #Sets West node if it exist 
-        if percepts['E'][0] == 'g':
+        if percepts['W'][0] == 'g':
             if self.currentNode.eastNode == None:
                 for node in self.map:
                     if node.xCoord == (self.currentNode.xCoord) and node.yCoord == (self.currentNode.yCoord - 1):
@@ -108,11 +111,13 @@ class AI:
                         break
                 newNode = Node(self.currentNode.xCoord,self.currentNode.yCoord - 1)
                 self.map.append(newNode)
-                newNode.setEastNode(self.currentNode)
                 self.currentNode.setWestNode(newNode) 
-
-        return random.choice(['N', 'S', 'E', 'W'])
-
+                newNode.setEastNode(self.currentNode)
+        
+        #This is for testing perposes only
+        self.currentNode = self.currentNode.southNode
+        self.currentNode.setVisitedToYes()
+        return 'S'
 class Node:
     def __init__(self,X,Y):
         self.xCoord = X
@@ -133,7 +138,7 @@ class Node:
         self.eastNode = node
     
     def setWestNode(self,node):
-        self.SouthNode = node
+        self.westNode = node
     
     def setVisitedToYes(self):
         self.visited = "yes"
