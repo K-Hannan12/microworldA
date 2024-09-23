@@ -21,6 +21,7 @@
 # priotorzing exploring 
 # setup back tracking 
 
+import random
 class AI:
     def __init__(self):
         
@@ -47,14 +48,19 @@ class AI:
         
         self.update_graph(percepts)
 
+        posibleDirection = []
+
         
         for direction in ['N', 'S', 'E', 'W']:
             next_node = self.get_neighbor_node(direction)
             if next_node and not next_node.visited:
-                self.path_stack.append(self.currentNode)  
-                self.last_direction = direction  
-                return self.move_in_direction(direction)
+                posibleDirection.append(direction)
 
+        if len(posibleDirection) != 0:
+            direction = random.choice(posibleDirection)
+            self.path_stack.append(self.currentNode)  
+            self.last_direction = direction
+            return self.move_in_direction(direction)
         
         if self.path_stack:
             print("Backtracking to previous node...")
