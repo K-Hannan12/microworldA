@@ -16,7 +16,7 @@
 # get to a dead end. So when we move to the next node we see were the Agent can move then linkes the current node
 # to all of the nodes that the agent can move to. 
 # Set up  coordinate to track where the agent is using nodes
-#set up a stack for backtracking and direction to avoid immediate backtracking
+# set up a stack for backtracking and direction to avoid immediate backtracking
 # setting up a graph and updating with the visited percepts
 # priotorzing exploring 
 # setup back tracking 
@@ -50,7 +50,6 @@ class AI:
 
         posibleDirection = []
 
-        
         for direction in ['N', 'S', 'E', 'W']:
             next_node = self.get_neighbor_node(direction)
             if next_node and not next_node.visited:
