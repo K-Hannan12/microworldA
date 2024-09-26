@@ -5,7 +5,6 @@
 # APPROACH: [WRITE AN OVERVIEW OF YOUR APPROACH HERE.]
 #
 # 
-<<<<<<< HEAD
 
 # The first case that needed to be solved was determining what to do when the agent was on the goal. 
 # We implemented an if-statement that checks if the agent is at the goal (r), and if so, the agent returns 'U'.
@@ -40,19 +39,6 @@
 # the agent ensures it does not move into walls (w) and only explores ground (g).
 
 
-=======
-#   The next thing that we needed to do is to make a Graph so that we know where are AI has been.  
-# We made XY Coordinates for the AI so if we do end up in a loop of node we 
-# we know that we have alread be to that node.
-# Next I needed to start making the map of the enviorment so that we know how to get back if
-# get to a dead end. So when we move to the next node we see were the Agent can move then linkes the current node
-# to all of the nodes that the agent can move to. 
-# Set up  coordinate to track where the agent is using nodes
-# set up a stack for backtracking and direction to avoid immediate backtracking
-# setting up a graph and updating with the visited percepts
-# priotorzing exploring 
-# setup back tracking 
->>>>>>> f71c9bf98b3522484c476a0395682c61fe48a5f4
 
 import random
 class AI:
