@@ -4,22 +4,41 @@
 #
 # APPROACH: [WRITE AN OVERVIEW OF YOUR APPROACH HERE.]
 #
-#   The first case that I had to solve was what to do when the agent was on the Goal.
-# For this I made and if statment so if the agent was on the goal then it would return 'U'.
-# After this I created more of the base cases were if the goal is in sight (were the goal is in the list of any
-# of the 4 direction) then the agent would move towrds the goal.  
 # 
-#   The next thing that we needed to do is to make a Graph so that we know where are AI has been.  
-# We made XY Coordinates for the AI so if we do end up in a loop of node we 
-# we know that we have alread be to that node.
-# Next I needed to start making the map of the enviorment so that we know how to get back if
-# get to a dead end. So when we move to the next node we see were the Agent can move then linkes the current node
-# to all of the nodes that the agent can move to. 
-# Set up  coordinate to track where the agent is using nodes
-#set up a stack for backtracking and direction to avoid immediate backtracking
-# setting up a graph and updating with the visited percepts
-# priotorzing exploring 
-# setup back tracking 
+
+# The first case that needed to be solved was determining what to do when the agent was on the goal. 
+# We implemented an if-statement that checks if the agent is at the goal (r), and if so, the agent returns 'U'.
+# We implemented base cases for situations where the goal is in sight, 
+# meaning the goal is present in one of the four directional percepts (N, S, E, W).
+# In such cases, the agent immediately moves toward the goal in that direction.
+# Now we needed to know where the agent is and track it 
+# For this, we  created a structure that tracks where the agent has been using a graph-like map, represented with XY coordinates. 
+# This allows the agent to detect if it is revisiting a node, helping to prevent loops or redundant exploration of the same area.
+# Now we to update the node as the agent moves
+#So The next step was to implement a map (or graph) of the environment that updates as the agent moves. 
+# This map allows the agent to know where it has been and what areas are still unexplored. 
+# As the agent moves, it updates the map with the current node and links it to neighboring nodes, 
+# based on percepts indicating possible directions to move.
+# For agents movement At first, we had the agent follow a fixed set of directions
+# This approach gave the agent some predictability and always found the goal
+# but made it prone to getting stuck in loops or revisiting the same areas unnecessarily.
+# The agent wasn't exploring new regions and different worlds effectively because it always prioritized the same directions.
+# To improve flexibility and avoid getting stuck, we later changed the agent's movement strategy to choose directions randomly
+# when multiple unexplored directions were available. This random exploration allowed the agent to better cover new areas,
+# avoiding predictable and redundant movements. The agent now selects a random direction from the available unexplored directions, 
+# which helps it explore the environment more thoroughly.
+# For backtracking,we  implemented a stack-based backtracking mechanism. 
+# When the agent reaches a node where all neighboring areas have been explored or blocked, 
+# it backtracks to the most recent unexplored node. This prevents the agent from getting stuck at dead ends.
+# We also to need make sure the agent priotizes the maze to find a goal
+# we did this by keeping track of unexplored directions from its current position. 
+# It randomly chooses from these directions to explore, aiming to uncover new regions
+#  and avoid visiting previously explored nodes unless necessary.
+# When the agent moves, it updates its coordinates based on the direction (N, S, E, W). 
+# It also updates the map with the newly visited node and its neighbors. T
+# the agent ensures it does not move into walls (w) and only explores ground (g).
+
+
 
 import random
 class AI:
